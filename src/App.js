@@ -1,20 +1,45 @@
 /** @format */
 
-import React from "react";
+import React, { Component } from "react";
 
-function App() {
-  return (
-    <div className='App'>
-      <h1>Welcome to React!</h1>
-      <p>React is so cool!</p>
-      <p>This is another paragraph.</p>
-      <ul>
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
-      </ul>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: ["ready", "set", "GO"],
+      text: "",
+    };
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+    this.setState({
+      list: [...this.state.list, this.state.text],
+      text: "",
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello World</h1>
+        <form onSubmit={this.onSubmit}>
+          <input
+            type='text'
+            value={this.state.text}
+            onChange={event => this.setState({ text: event.target.value })}
+          />
+          <button type='submit'>Add</button>
+        </form>
+        <ul>
+          {this.state.list.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 }
 
 export default App;
